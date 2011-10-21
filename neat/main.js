@@ -5,9 +5,9 @@ $(function(){
 	var page = parseInt(location.hash.replace('#',''), 10) || 0;
 	page = move(page);
 
-	$(window).keyup(function(){
-		event.stopPropagation();
-		var code = event.keyCode;
+	$(window).keyup(function(ev){
+		ev.stopPropagation();
+		var code = ev.keyCode;
 		switch (code) {
 			case 38: // up
 			case 37: // left
@@ -42,7 +42,7 @@ $(function(){
 		$('div.contents').hide().eq(p).show();
 		updatePager(p);
 		updateWindowSize();
-		location.hash = p;
+		location.hash = '#' + p;
 		return p;
 	}
 
@@ -53,8 +53,8 @@ $(function(){
 	function updatePager(p) {
 		var pager = '<span>Page: ' + addZero(p,2) + '/' + addZero(($('div.contents').size() - 1), 2) + '</span>';
 		$('#pager').html(pager);
-		if (hasPage(p - 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','#').text('Prev').click(function(){prev(p);}));
-		if (hasPage(p + 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','#').text('Next').click(function(){next(p);}));
+		if (hasPage(p - 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','javascript:void(0)').text('Prev').click(function(){prev(p);}));
+		if (hasPage(p + 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','javascript:void(0)').text('Next').click(function(){next(p);}));
 	}
 
 	function updateWindowSize() {

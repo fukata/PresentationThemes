@@ -71,12 +71,10 @@ $(function(){
 		t /= 1000;
 		if (t > 3600) {
 			h = parseInt(t / 3600);
-			h = h > 0 ? '0' + h : h;
 			t = t % 3600;
 		}
 		if (t > 60) {
 			m = parseInt(t / 60);
-			m = m > 0 ? '0' + m : m;
 			t = t % 60;
 		}
 		s = parseInt(t);

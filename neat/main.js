@@ -85,7 +85,8 @@ $(function(){
 	function addZero(n, z) {
 		z = z || 1;
 		var zero = '';
-		for (var i = 0; i < z; i++) zero += '0';
+		var len = z - (''+n).length + 1;
+		for (var i = 0; i < len; i++) zero += '0';
 		return n < Math.pow(10, z) ? zero + n : n;
 	}
 });

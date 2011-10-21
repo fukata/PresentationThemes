@@ -1,41 +1,6 @@
 $(function(){
-	function prev(p) {
-		if (p > 0) { p = move(p - 1); } 
-		return p;
-	}
-
-	function next(p) {
-		if (p + 1 < $('div.contents').size()) { p = move(p + 1); }
-		return p;
-	}
-
-	function move(p) {
-		if (isNaN(p) || p < 0 || $('div.contents').size() <= p) { p = 0; }
-		$('div.contents').hide().eq(p).show();
-		updatePager(p);
-		updateWindowSize();
-		location.hash = p;
-		return p;
-	}
-
-	function hasPage(p) {
-		return p >= 0 && p < $('div.contents').size();
-	}
-
-	function updatePager(p) {
-		var pager = '<span>Page: ' + p + '/' + ($('div.contents').size() - 1) + '</span>';
-		$('#pager').html(pager);
-		if (hasPage(p - 1)) { $('#pager').append(' ').append($(document.createElement('a')).attr('href','#').text('Prev').click(function(){prev(p);})); }
-		if (hasPage(p + 1)) { $('#pager').append(' ').append($(document.createElement('a')).attr('href','#').text('Next').click(function(){next(p);})); }
-	}
-
-	function updateWindowSize() {
-		var wh = $(window).height();
-		var fh = $('#footer').outerHeight();
-		var $content = $('div.contents:visible');
-		var y = $content.position().top;
-		$content.height(wh - fh - y);
-	}
+	var startDate = new Date();
+	setInterval(updateTime, 500);
 
 	var page = parseInt(location.hash.replace('#',''), 10) || 0;
 	page = move(page);
@@ -60,4 +25,66 @@ $(function(){
 	$(window).resize(function(){
 		updateWindowSize();
 	});
+
+
+	function prev(p) {
+		if (p > 0) p = move(p - 1); 
+		return p;
+	}
+
+	function next(p) {
+		if (p + 1 < $('div.contents').size()) p = move(p + 1);
+		return p;
+	}
+
+	function move(p) {
+		if (isNaN(p) || p < 0 || $('div.contents').size() <= p) p = 0;
+		$('div.contents').hide().eq(p).show();
+		updatePager(p);
+		updateWindowSize();
+		location.hash = p;
+		return p;
+	}
+
+	function hasPage(p) {
+		return p >= 0 && p < $('div.contents').size();
+	}
+
+	function updatePager(p) {
+		var pager = '<span>Page: ' + p + '/' + ($('div.contents').size() - 1) + '</span>';
+		$('#pager').html(pager);
+		if (hasPage(p - 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','#').text('Prev').click(function(){prev(p);}));
+		if (hasPage(p + 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','#').text('Next').click(function(){next(p);}));
+	}
+
+	function updateWindowSize() {
+		var wh = $(window).height();
+		var fh = $('#footer').outerHeight();
+		var $content = $('div.contents:visible');
+		var y = $content.position().top;
+		$content.height(wh - fh - y);
+	}
+
+	function updateTime() {
+		var t = (new Date()).getTime() - startDate.getTime();
+		var h = m = s = 0;
+		t /= 1000;
+		if (t > 3600) {
+			h = parseInt(t / 3600);
+			h = h > 0 ? '0' + h : h;
+			t = t % 3600;
+		}
+		if (t > 60) {
+			m = parseInt(t / 60);
+			m = m > 0 ? '0' + m : m;
+			t = t % 60;
+		}
+		s = parseInt(t);
+
+		$('#time').html('経過：' + addZero(h) + '時間' + addZero(m) + '分' + addZero(s) + '秒');
+	}
+
+	function addZero(n) {
+		return n < 10 ? '0' + n : n;
+	}
 });

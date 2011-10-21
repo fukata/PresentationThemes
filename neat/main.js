@@ -51,7 +51,7 @@ $(function(){
 	}
 
 	function updatePager(p) {
-		var pager = '<span>Page: ' + p + '/' + ($('div.contents').size() - 1) + '</span>';
+		var pager = '<span>Page: ' + addZero(p,2) + '/' + addZero(($('div.contents').size() - 1), 2) + '</span>';
 		$('#pager').html(pager);
 		if (hasPage(p - 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','#').text('Prev').click(function(){prev(p);}));
 		if (hasPage(p + 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','#').text('Next').click(function(){next(p);}));
@@ -82,7 +82,10 @@ $(function(){
 		$('#time').html('経過：' + addZero(h) + '時間' + addZero(m) + '分' + addZero(s) + '秒');
 	}
 
-	function addZero(n) {
-		return n < 10 ? '0' + n : n;
+	function addZero(n, z) {
+		z = z || 1;
+		var zero = '';
+		for (var i = 0; i < z; i++) zero += '0';
+		return n < Math.pow(10, z) ? zero + n : n;
 	}
 });

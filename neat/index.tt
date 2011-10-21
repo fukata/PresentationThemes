@@ -13,7 +13,7 @@
 	<span id="pager"></span>
 	<span id="time"></span>
 </div>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="main.js" charset="utf-8"></script>
 </body>
 </html>

@@ -26,6 +26,9 @@ $(function(){
 		updateWindowSize();
 	});
 
+	hljs.tabReplace = '    '; // 4 spaces
+	hljs.initHighlightingOnLoad();
+	$('code').each(function(i, e) {hljs.highlightBlock(e, '    ')});
 
 	function prev(p) {
 		if (p > 0) p = move(p - 1); 

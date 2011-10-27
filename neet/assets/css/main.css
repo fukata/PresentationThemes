@@ -46,3 +46,8 @@ div.contents {
 	float: right;
 	padding-right: 5px;
 }
+
+code {
+	margin-left: 10px;
+	margin-right: 10px;
+}

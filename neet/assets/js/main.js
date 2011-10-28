@@ -1,6 +1,6 @@
 $(function(){
 	var startDate = new Date();
-	setInterval(updateTime, 500);
+	var timer = setInterval(updateTime, 500);
 
 	var page = parseInt(location.hash.replace('#',''), 10) || 0;
 	page = move(page);
@@ -36,12 +36,12 @@ $(function(){
 	}
 
 	function next(p) {
-		if (p + 1 < $('div.contents').size()) p = move(p + 1);
+		if (p + 1 < totalPage()) p = move(p + 1);
 		return p;
 	}
 
 	function move(p) {
-		if (isNaN(p) || p < 0 || $('div.contents').size() <= p) p = 0;
+		if (isNaN(p) || p < 0 || totalPage() <= p) p = 0;
 		$('div.contents').hide().eq(p).show();
 		updatePager(p);
 		updateWindowSize();
@@ -49,12 +49,16 @@ $(function(){
 		return p;
 	}
 
+	function totalPage() {
+		return $('div.contents').size();
+	}
+
 	function hasPage(p) {
-		return p >= 0 && p < $('div.contents').size();
+		return p >= 0 && p < totalPage();
 	}
 
 	function updatePager(p) {
-		var pager = '<span>Page: ' + addZero(p,2) + '/' + addZero(($('div.contents').size() - 1), 2) + '</span>';
+		var pager = '<span>Page: ' + addZero(p,2) + '/' + addZero(totalPage() - 1, 2) + '</span>';
 		$('#pager').html(pager);
 		if (hasPage(p - 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','javascript:void(0)').text('Prev').click(function(){prev(p);}));
 		if (hasPage(p + 1)) $('#pager').append(' ').append($(document.createElement('a')).attr('href','javascript:void(0)').text('Next').click(function(){next(p);}));
@@ -69,6 +73,11 @@ $(function(){
 	}
 
 	function updateTime() {
+		if (page == totalPage() - 1) {
+			clearInterval(timer);
+			return;
+		}
+
 		var t = (new Date()).getTime() - startDate.getTime();
 		var h = m = s = 0;
 		t /= 1000;

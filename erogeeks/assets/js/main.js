@@ -91,7 +91,7 @@ $(function(){
 		}
 		s = parseInt(t);
 
-		$('#time').html('経過：' + addZero(h) + '時間' + addZero(m) + '分' + addZero(s) + '秒');
+		$('#time').html('経過：' + addzero(h) + '時間' + addzero(m) + '分' + addzero(s) + '秒');
 	}
 
 	function addZero(n, z) {

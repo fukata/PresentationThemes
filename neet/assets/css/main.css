@@ -13,9 +13,6 @@ div.contents {
 }
 
 h1 {
-	position: relative;
-	top: 50%;
-	margin-top: -36px;
 	text-align: center;
 	font-size: 72px;
 }

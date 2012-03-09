@@ -10,6 +10,7 @@
 <body>
 [% html %]
 
+[% UNLESS config.pdf %]
 <div id="footer">
 	[% IF config.twitter_account %]
 	@<a href="https://twitter.com/[% config.twitter_account %]">[% config.twitter_account %]</a>
@@ -17,6 +18,8 @@
 	<span id="pager"></span>
 	<span id="time"></span>
 </div>
+[% END %]
+
 <script type="text/javascript" src="assets/js/jquery.js" charset="utf-8"></script>
 <script type="text/javascript" src="assets/js/highlight/highlight.pack.js" charset="utf-8"></script>
 <script type="text/javascript" src="assets/js/presentation.js" charset="utf-8"></script>
